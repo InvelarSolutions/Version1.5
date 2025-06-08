@@ -18,9 +18,9 @@ export interface ContactSubmissionInsert {
   last_name: string;
   email: string;
   phone: string;
-  company_name?: string;
-  industry?: string;
-  additional_notes?: string;
+  company_name?: string | null;
+  industry?: string | null;
+  additional_notes?: string | null;
   newsletter_subscription?: boolean;
 }
 
