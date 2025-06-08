@@ -78,7 +78,7 @@ export const contactService = {
     
     try {
       // Test 1: Basic health check
-      const { data, error } = await supabase
+      const { data, error, count } = await supabase
         .from('contact_submissions')
         .select('count', { count: 'exact', head: true });
 
@@ -88,7 +88,7 @@ export const contactService = {
       }
 
       console.log('✅ Connection test successful');
-      console.log(`📊 Total records: ${data.count || 0}`);
+      console.log(`📊 Total records: ${count || 0}`);
       return true;
     } catch (error) {
       console.error('❌ Connection test error:', error);
