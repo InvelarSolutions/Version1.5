@@ -29,7 +29,7 @@ import {
   Copy
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Chatbot } from '@/components/ui/chatbot';
+import { EnhancedChatbot } from '@/components/ui/enhanced-chatbot';
 
 // Custom hook for intersection observer with scroll-based fade
 const useScrollFadeAnimation = (options = {}) => {
@@ -1026,8 +1026,8 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* Chatbot Component */}
-      <Chatbot 
+      {/* Enhanced Chatbot Component */}
+      <EnhancedChatbot 
         isOpen={isChatbotOpen} 
         onClose={() => setIsChatbotOpen(false)} 
       />
