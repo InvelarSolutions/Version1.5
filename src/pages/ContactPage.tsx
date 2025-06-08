@@ -11,10 +11,10 @@ import { ArrowLeft, Send, CheckCircle, AlertCircle, Database } from 'lucide-reac
 import { Link } from 'react-router-dom';
 import { contactService } from '@/lib/supabase';
 import { DatabaseStatus } from '@/components/DatabaseStatus';
-import type { Database } from '@/lib/types/database';
+import type { Database as DatabaseType } from '@/lib/types/database';
 import { INDUSTRY_OPTIONS } from '@/lib/types/database';
 
-type ContactSubmissionInsert = Database['public']['Tables']['contact_submissions']['Insert'];
+type ContactSubmissionInsert = DatabaseType['public']['Tables']['contact_submissions']['Insert'];
 
 export default function ContactPage() {
   const [formData, setFormData] = useState<ContactSubmissionInsert>({
