@@ -7,10 +7,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { PhoneInput } from '@/components/ui/phone-input';
-import { ArrowLeft, Send, CheckCircle, AlertCircle, Database } from 'lucide-react';
+import { ArrowLeft, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { contactService } from '@/lib/supabase';
-import { DatabaseStatus } from '@/components/DatabaseStatus';
 import type { Database as DatabaseType } from '@/lib/types/database';
 import { INDUSTRY_OPTIONS } from '@/lib/types/database';
 
@@ -32,7 +31,6 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showDatabaseStatus, setShowDatabaseStatus] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -247,38 +245,20 @@ export default function ContactPage() {
 
       {/* Fixed Navigation Button */}
       <div className="nav-buttons">
-        <div className="flex items-center space-x-2">
-          <Button
-            onClick={() => setShowDatabaseStatus(!showDatabaseStatus)}
-            variant="outline"
-            size="sm"
+        <Link to="/">
+          <Button 
+            variant="outline" 
             className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300"
           >
-            <Database className="h-4 w-4 mr-1" />
-            DB Status
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Home
           </Button>
-          <Link to="/">
-            <Button 
-              variant="outline" 
-              className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Home
-            </Button>
-          </Link>
-        </div>
+        </Link>
       </div>
 
       {/* Main Content - Adjusted padding to account for fixed header */}
       <main className="py-20 px-4 pt-32">
         <div className="max-w-2xl mx-auto">
-          {/* Database Status Panel */}
-          {showDatabaseStatus && (
-            <div className="mb-8">
-              <DatabaseStatus />
-            </div>
-          )}
-
           {/* Header Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Get Started Today</h1>
@@ -295,7 +275,7 @@ export default function ContactPage() {
                 <p className="text-red-300 font-medium">Submission Failed</p>
                 <p className="text-red-300 text-sm">{error}</p>
                 <p className="text-red-300 text-xs mt-1">
-                  Please check the database status above or try again later.
+                  Please try again later.
                 </p>
               </div>
             </div>
