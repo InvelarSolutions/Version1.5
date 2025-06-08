@@ -26,10 +26,12 @@ import {
   Award,
   Lightbulb,
   BarChart3,
-  Copy
+  Copy,
+  AlertCircle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Chatbot } from '@/components/ui/chatbot';
+import { supabase } from '@/lib/supabase';
 
 // Custom hook for intersection observer with scroll-based fade
 const useScrollFadeAnimation = (options = {}) => {
@@ -507,6 +509,29 @@ export default function HomePage() {
           <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light tracking-wide">
             Empowering every business with intelligent AI automation for an efficient future.
           </p>
+          
+          {/* Supabase Configuration Warning */}
+          {!supabase && (
+            <div className="mb-8 p-4 bg-yellow-900/20 border border-yellow-500 rounded-lg flex items-center justify-center max-w-2xl mx-auto">
+              <AlertCircle className="h-5 w-5 text-yellow-400 mr-3 flex-shrink-0" />
+              <div className="text-left">
+                <p className="text-yellow-300 font-medium">Database Setup Required</p>
+                <p className="text-yellow-200 text-sm">
+                  Configure your Supabase environment variables to enable contact form functionality.
+                </p>
+              </div>
+              <Link to="/setup" className="ml-4">
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  className="border-yellow-500 text-yellow-300 hover:bg-yellow-500 hover:text-black transition-all duration-300"
+                >
+                  Setup Guide
+                </Button>
+              </Link>
+            </div>
+          )}
+          
           <Link to="/contact">
             <Button 
               size="lg" 
@@ -1007,6 +1032,7 @@ export default function HomePage() {
                 <li><button onClick={() => scrollToSection('about')} className="hover:text-white transition-colors duration-300">About</button></li>
                 <li><button onClick={() => scrollToSection('services')} className="hover:text-white transition-colors duration-300">Services</button></li>
                 <li><button onClick={() => scrollToSection('contact')} className="hover:text-white transition-colors duration-300">Contact</button></li>
+                <li><Link to="/setup" className="hover:text-white transition-colors duration-300">Setup Guide</Link></li>
               </ul>
             </div>
             
