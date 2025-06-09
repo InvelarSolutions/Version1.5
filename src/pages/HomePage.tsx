@@ -159,6 +159,8 @@ export default function HomePage() {
   const mailButtonRef = useRef<HTMLButtonElement>(null);
   const phoneBubbleRef = useRef<HTMLDivElement>(null);
   const phoneButtonRef = useRef<HTMLButtonElement>(null);
+  const voiceflowWidget = useRef<any>(null);
+  const voiceflowContainer = useRef<HTMLDivElement>(null);
 
   // Set screen dimensions after component mounts on client side
   useEffect(() => {
@@ -177,12 +179,33 @@ export default function HomePage() {
 
   // Initialize Voiceflow chat widget
   useEffect(() => {
+    // Create a separate container for Voiceflow outside of React's control
+    const voiceflowDiv = document.createElement('div');
+    voiceflowDiv.id = 'voiceflow-chat-root';
+    voiceflowDiv.style.cssText = `
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 50;
+      width: 400px;
+      height: 600px;
+      max-width: calc(100vw - 2rem);
+      max-height: calc(100vh - 2rem);
+      transition: all 0.3s ease-in-out;
+      opacity: 0;
+      transform: translateY(1rem);
+      pointer-events: none;
+    `;
+    
+    document.body.appendChild(voiceflowDiv);
+    voiceflowContainer.current = voiceflowDiv;
+
     // Load Voiceflow script
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.onload = function() {
       if (window.voiceflow) {
-        window.voiceflow.chat.load({
+        voiceflowWidget.current = window.voiceflow.chat.load({
           verify: { projectID: '6846c5cea6a8e2a7db8c1327' },
           url: 'https://general-runtime.voiceflow.com',
           versionID: 'production',
@@ -191,7 +214,7 @@ export default function HomePage() {
           },
           render: {
             mode: 'embedded',
-            target: document.getElementById('chat-container')
+            target: voiceflowDiv
           }
         });
       }
@@ -201,12 +224,30 @@ export default function HomePage() {
     document.head.appendChild(script);
 
     return () => {
-      // Cleanup script on unmount
+      // Cleanup script and container on unmount
       if (document.head.contains(script)) {
         document.head.removeChild(script);
       }
+      if (voiceflowContainer.current && document.body.contains(voiceflowContainer.current)) {
+        document.body.removeChild(voiceflowContainer.current);
+      }
     };
   }, []);
+
+  // Control Voiceflow chat visibility
+  useEffect(() => {
+    if (voiceflowContainer.current) {
+      if (isVoiceflowChatOpen) {
+        voiceflowContainer.current.style.opacity = '1';
+        voiceflowContainer.current.style.transform = 'translateY(0)';
+        voiceflowContainer.current.style.pointerEvents = 'auto';
+      } else {
+        voiceflowContainer.current.style.opacity = '0';
+        voiceflowContainer.current.style.transform = 'translateY(1rem)';
+        voiceflowContainer.current.style.pointerEvents = 'none';
+      }
+    }
+  }, [isVoiceflowChatOpen]);
 
   // Handle clicking outside email bubble
   useEffect(() => {
@@ -548,22 +589,6 @@ export default function HomePage() {
           </div>
         )}
       </div>
-
-      {/* Voiceflow Chat Container */}
-      <div 
-        id="chat-container"
-        className={`fixed right-4 bottom-4 z-50 transition-all duration-300 ease-in-out ${
-          isVoiceflowChatOpen 
-            ? 'opacity-100 translate-y-0 pointer-events-auto' 
-            : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
-        style={{
-          width: '400px',
-          height: '600px',
-          maxWidth: 'calc(100vw - 2rem)',
-          maxHeight: 'calc(100vh - 2rem)',
-        }}
-      />
 
       {/* Hero Section - Adjusted padding to account for fixed header */}
       <section className="relative px-4 pt-32 pb-32 overflow-hidden min-h-screen">
