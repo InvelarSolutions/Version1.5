@@ -26,7 +26,8 @@ import {
   Award,
   Lightbulb,
   BarChart3,
-  Copy
+  Copy,
+  Headphones
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { EnhancedChatbot } from '@/components/ui/enhanced-chatbot';
@@ -151,6 +152,7 @@ export default function HomePage() {
   const [showPhoneBubble, setShowPhoneBubble] = useState(false);
   const [phoneCopied, setPhoneCopied] = useState(false);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const [isVoiceflowChatOpen, setIsVoiceflowChatOpen] = useState(false);
   const [screenDimensions, setScreenDimensions] = useState({ width: 1920, height: 1080 }); // Default server-safe values
   
   const emailBubbleRef = useRef<HTMLDivElement>(null);
@@ -171,6 +173,39 @@ export default function HomePage() {
     window.addEventListener('resize', updateScreenDimensions);
     
     return () => window.removeEventListener('resize', updateScreenDimensions);
+  }, []);
+
+  // Initialize Voiceflow chat widget
+  useEffect(() => {
+    // Load Voiceflow script
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.onload = function() {
+      if (window.voiceflow) {
+        window.voiceflow.chat.load({
+          verify: { projectID: '6846c5cea6a8e2a7db8c1327' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          },
+          render: {
+            mode: 'embedded',
+            target: document.getElementById('chat-container')
+          }
+        });
+      }
+    };
+    script.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+    
+    document.head.appendChild(script);
+
+    return () => {
+      // Cleanup script on unmount
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+    };
   }, []);
 
   // Handle clicking outside email bubble
@@ -232,6 +267,10 @@ export default function HomePage() {
 
   const handleChatClick = () => {
     setIsChatbotOpen(true);
+  };
+
+  const handleVoiceflowChatClick = () => {
+    setIsVoiceflowChatOpen(!isVoiceflowChatOpen);
   };
 
   const handleMailClick = () => {
@@ -425,8 +464,19 @@ export default function HomePage() {
             variant="outline"
             size="sm"
             className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300 p-2"
+            title="AI Chat Assistant"
           >
             <MessageCircle className="h-4 w-4 text-black" />
+          </Button>
+          <Button 
+            id="chat-button"
+            onClick={handleVoiceflowChatClick}
+            variant="outline"
+            size="sm"
+            className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300 p-2"
+            title="Voice Assistant"
+          >
+            <Headphones className="h-4 w-4 text-black" />
           </Button>
           <Link to="/contact">
             <Button className="bg-white text-black hover:bg-gray-100 font-semibold transition-all duration-300 transform hover:scale-105">
@@ -478,7 +528,16 @@ export default function HomePage() {
                 className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300 w-fit"
               >
                 <MessageCircle className="h-4 w-4 mr-2 text-black" />
-                Chat
+                AI Chat
+              </Button>
+              <Button 
+                onClick={handleVoiceflowChatClick}
+                variant="outline"
+                size="sm"
+                className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300 w-fit"
+              >
+                <Headphones className="h-4 w-4 mr-2 text-black" />
+                Voice Chat
               </Button>
               <Link to="/contact">
                 <Button className="bg-white text-black hover:bg-gray-100 font-semibold w-fit transition-all duration-300 transform hover:scale-105">
@@ -489,6 +548,22 @@ export default function HomePage() {
           </div>
         )}
       </div>
+
+      {/* Voiceflow Chat Container */}
+      <div 
+        id="chat-container"
+        className={`fixed right-4 bottom-4 z-50 transition-all duration-300 ease-in-out ${
+          isVoiceflowChatOpen 
+            ? 'opacity-100 translate-y-0 pointer-events-auto' 
+            : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+        style={{
+          width: '400px',
+          height: '600px',
+          maxWidth: 'calc(100vw - 2rem)',
+          maxHeight: 'calc(100vh - 2rem)',
+        }}
+      />
 
       {/* Hero Section - Adjusted padding to account for fixed header */}
       <section className="relative px-4 pt-32 pb-32 overflow-hidden min-h-screen">
