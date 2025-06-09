@@ -26,8 +26,7 @@ import {
   Award,
   Lightbulb,
   BarChart3,
-  Copy,
-  Headphones
+  Copy
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { EnhancedChatbot } from '@/components/ui/enhanced-chatbot';
@@ -501,23 +500,14 @@ export default function HomePage() {
             Contact
           </button>
           <Button 
-            onClick={handleChatClick}
+            id="chat-button"
+            onClick={handleVoiceflowChatClick}
             variant="outline"
             size="sm"
             className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300 p-2"
             title="AI Chat Assistant"
           >
             <MessageCircle className="h-4 w-4 text-black" />
-          </Button>
-          <Button 
-            id="chat-button"
-            onClick={handleVoiceflowChatClick}
-            variant="outline"
-            size="sm"
-            className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300 p-2"
-            title="Voice Assistant"
-          >
-            <Headphones className="h-4 w-4 text-black" />
           </Button>
           <Link to="/contact">
             <Button className="bg-white text-black hover:bg-gray-100 font-semibold transition-all duration-300 transform hover:scale-105">
@@ -563,22 +553,13 @@ export default function HomePage() {
                 Contact
               </button>
               <Button 
-                onClick={handleChatClick}
+                onClick={handleVoiceflowChatClick}
                 variant="outline"
                 size="sm"
                 className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300 w-fit"
               >
                 <MessageCircle className="h-4 w-4 mr-2 text-black" />
                 AI Chat
-              </Button>
-              <Button 
-                onClick={handleVoiceflowChatClick}
-                variant="outline"
-                size="sm"
-                className="border-gray-600 text-black hover:bg-gray-800 hover:text-white transition-all duration-300 w-fit"
-              >
-                <Headphones className="h-4 w-4 mr-2 text-black" />
-                Voice Chat
               </Button>
               <Link to="/contact">
                 <Button className="bg-white text-black hover:bg-gray-100 font-semibold w-fit transition-all duration-300 transform hover:scale-105">
