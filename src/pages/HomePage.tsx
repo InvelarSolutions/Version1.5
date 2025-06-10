@@ -620,7 +620,7 @@ export default function HomePage() {
                 <CardContent className="p-10">
                   <div className="flex items-center mb-6">
                     <Target className="h-12 w-12 text-blue-400 mr-4" />
-                    <h3 className="text-2xl font-bold">Our Mission</h3>
+                    <h3 className="text-2xl font-bold text-blue-400">Our Mission</h3>
                   </div>
                   <p className="text-gray-300 leading-relaxed text-lg">
                     To democratize enterprise-grade AI automation, making cutting-edge technology accessible to businesses 
@@ -634,7 +634,7 @@ export default function HomePage() {
                 <CardContent className="p-10">
                   <div className="flex items-center mb-6">
                     <Lightbulb className="h-12 w-12 text-yellow-400 mr-4" />
-                    <h3 className="text-2xl font-bold">Our Vision</h3>
+                    <h3 className="text-2xl font-bold text-yellow-400">Our Vision</h3>
                   </div>
                   <p className="text-gray-300 leading-relaxed text-lg">
                     To create a world where businesses operate with unprecedented efficiency through AI-powered automation. 
