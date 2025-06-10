@@ -928,13 +928,11 @@ export default function HomePage() {
               {[
                 {
                   text: "Invelar transformed our customer service operations completely. What used to take our team 40 hours a week now runs automatically, and our response times improved by 85%. The ROI was evident within the first month.",
-                  author: "Sarah Chen",
-                  position: "VP of Operations, TechFlow Solutions"
+                  author: "Sarah Chen"
                 },
                 {
                   text: "The AI agents Invelar deployed have revolutionized our data processing workflows. We're now handling 10x the volume with the same team size, and accuracy has improved dramatically. It's like having a team that never sleeps.",
-                  author: "Marcus Rodriguez",
-                  position: "CTO, DataDrive Analytics"
+                  author: "Marcus Rodriguez"
                 }
               ].map((testimonial, index) => (
                 <Card key={index} className="bg-[#2a2a2a] border-gray-700 transition-all duration-700 ease-out transform hover:scale-105 hover:shadow-xl">
@@ -948,8 +946,7 @@ export default function HomePage() {
                       "{testimonial.text}"
                     </p>
                     <div className="border-t border-gray-600 pt-4">
-                      <p className="font-semibold">{testimonial.author}</p>
-                      <p className="text-gray-400 text-sm">{testimonial.position}</p>
+                      <p className="font-semibold text-white">{testimonial.author}</p>
                     </div>
                   </CardContent>
                 </Card>
