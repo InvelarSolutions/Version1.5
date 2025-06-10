@@ -673,7 +673,7 @@ export default function HomePage() {
                   <Card key={index} className="bg-[#2a2a2a] border-gray-700 hover:border-gray-500 transition-all duration-500 group transform hover:scale-105">
                     <CardContent className="p-8 text-center">
                       <feature.icon className={`h-16 w-16 ${feature.color} mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`} />
-                      <h4 className="text-xl font-bold mb-4">{feature.title}</h4>
+                      <h4 className={`text-xl font-bold mb-4 ${feature.color}`}>{feature.title}</h4>
                       <p className="text-gray-300 leading-relaxed">{feature.description}</p>
                     </CardContent>
                   </Card>
@@ -690,29 +690,33 @@ export default function HomePage() {
                   {
                     icon: Award,
                     title: "Proven Track Record",
-                    description: "500+ successful implementations across diverse industries"
+                    description: "500+ successful implementations across diverse industries",
+                    color: "text-yellow-400"
                   },
                   {
                     icon: Users,
                     title: "Expert Team",
-                    description: "AI specialists, automation engineers, and industry veterans"
+                    description: "AI specialists, automation engineers, and industry veterans",
+                    color: "text-blue-400"
                   },
                   {
                     icon: Zap,
                     title: "Rapid ROI",
-                    description: "Average 6-month payback period on automation investments"
+                    description: "Average 6-month payback period on automation investments",
+                    color: "text-yellow-400"
                   },
                   {
                     icon: Shield,
                     title: "24/7 Support",
-                    description: "Continuous monitoring and optimization of your AI systems"
+                    description: "Continuous monitoring and optimization of your AI systems",
+                    color: "text-green-400"
                   }
                 ].map((reason, index) => (
                   <div key={index} className="text-center">
                     <div className="bg-[#2a2a2a] rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 transition-all duration-300 hover:shadow-lg hover:scale-110">
-                      <reason.icon className="h-10 w-10 text-white" />
+                      <reason.icon className={`h-10 w-10 ${reason.color}`} />
                     </div>
-                    <h4 className="font-bold mb-2">{reason.title}</h4>
+                    <h4 className={`font-bold mb-2 ${reason.color}`}>{reason.title}</h4>
                     <p className="text-gray-400 text-sm">{reason.description}</p>
                   </div>
                 ))}
@@ -813,45 +817,51 @@ export default function HomePage() {
                   icon: Workflow,
                   title: "Workflow Automation",
                   description: "We transform repetitive manual processes into intelligent, self-executing workflows. Our automation solutions reduce human error by 95% while freeing your team to focus on strategic initiatives that drive revenue growth.",
-                  features: ["Process mapping & optimization", "Multi-platform integrations", "Real-time monitoring & alerts", "Scalable automation pipelines"]
+                  features: ["Process mapping & optimization", "Multi-platform integrations", "Real-time monitoring & alerts", "Scalable automation pipelines"],
+                  color: "text-blue-400"
                 },
                 {
                   icon: Bot,
                   title: "AI Agents & Assistants",
                   description: "We deploy sophisticated AI agents that learn from your business patterns and make autonomous decisions. These intelligent systems work 24/7 to optimize operations, predict bottlenecks, and continuously improve performance.",
-                  features: ["Custom AI model training", "Natural language processing", "Predictive analytics", "Autonomous decision making"]
+                  features: ["Custom AI model training", "Natural language processing", "Predictive analytics", "Autonomous decision making"],
+                  color: "text-purple-400"
                 },
                 {
                   icon: MessageCircle,
                   title: "AI Chatbot Implementation",
                   description: "We revolutionize customer service with intelligent chatbots that understand context, handle complex queries, and provide personalized responses. Reduce response times by 90% while improving customer satisfaction.",
-                  features: ["Multi-language support", "CRM integration", "Lead qualification", "24/7 customer support"]
+                  features: ["Multi-language support", "CRM integration", "Lead qualification", "24/7 customer support"],
+                  color: "text-green-400"
                 },
                 {
                   icon: Globe,
                   title: "Website Creation & Optimization",
                   description: "We build high-converting, AI-powered websites that adapt to user behavior and optimize themselves for maximum engagement. Our sites integrate seamlessly with your automation ecosystem.",
-                  features: ["Responsive design", "SEO optimization", "Analytics integration", "Conversion optimization"]
+                  features: ["Responsive design", "SEO optimization", "Analytics integration", "Conversion optimization"],
+                  color: "text-cyan-400"
                 },
                 {
                   icon: Send,
                   title: "Automated Email Systems",
                   description: "We create intelligent email campaigns that personalize content, optimize send times, and nurture leads automatically. Increase open rates by 40% and conversions by 60% with AI-driven email automation.",
-                  features: ["Behavioral triggers", "A/B testing automation", "Personalization at scale", "Advanced segmentation"]
+                  features: ["Behavioral triggers", "A/B testing automation", "Personalization at scale", "Advanced segmentation"],
+                  color: "text-orange-400"
                 },
                 {
                   icon: PhoneCall,
                   title: "AI Calling Systems",
                   description: "We deploy AI-powered calling systems for lead qualification, appointment setting, and customer follow-ups. Our voice AI handles thousands of calls simultaneously with human-like conversation quality.",
-                  features: ["Natural voice synthesis", "Call scheduling", "Lead scoring", "CRM synchronization"]
+                  features: ["Natural voice synthesis", "Call scheduling", "Lead scoring", "CRM synchronization"],
+                  color: "text-pink-400"
                 }
               ].map((service, index) => (
                 <Card key={index} className="bg-[#2a2a2a] border-gray-700 hover:border-gray-500 transition-all duration-500 group transform hover:scale-105 hover:shadow-xl">
                   <CardContent className="p-8">
                     <div className="mb-6">
-                      <service.icon className="h-12 w-12 text-white group-hover:scale-110 transition-transform duration-300" />
+                      <service.icon className={`h-12 w-12 ${service.color} group-hover:scale-110 transition-transform duration-300`} />
                     </div>
-                    <h3 className="text-xl font-bold mb-4 text-white">{service.title}</h3>
+                    <h3 className={`text-xl font-bold mb-4 ${service.color}`}>{service.title}</h3>
                     <p className="text-gray-400 leading-relaxed mb-6">
                       {service.description}
                     </p>
